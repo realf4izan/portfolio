@@ -126,18 +126,6 @@
   .impact-list .where{font-family:var(--mono);font-size:12.5px;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px}
   .impact-list p{color:var(--muted);font-size:15.5px}
 
-  /* ---------- hunt log ---------- */
-  .log-list{list-style:none;display:grid;gap:10px}
-  .log-list li{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
-  .log-list b{font-weight:700}
-  .log-list .where{font-family:var(--mono);font-size:12.5px;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px}
-  .log-list p{color:var(--muted);font-size:14.5px}
-  .log-list .outcome{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;padding:5px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
-  .log-list .outcome.sub{color:#fff;background:var(--red);border-color:var(--red)}
-  .log-list .outcome.prog{color:var(--blue);border-color:var(--blue)}
-  .log-list .outcome.blk{color:var(--teal);border-color:var(--teal)}
-  .log-group{font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin:26px 0 12px}
-  .log-note{color:var(--faint);font-size:14px;margin-top:18px}
 
   .craft{margin-top:48px}
   .bar-row{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:center;padding:13px 0;border-bottom:1px dashed var(--line)}
@@ -172,6 +160,27 @@
   footer{padding:44px 0 54px}
   .foot-in{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;color:var(--faint);font-size:14px}
   .foot-in .sig{font-family:var(--disp);font-weight:700;color:var(--muted);font-style:italic}
+  /* ---------- advanced UI ---------- */
+  .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none;animation:drift 14s ease-in-out infinite alternate}
+  .orb-a{width:420px;height:420px;background:radial-gradient(circle,rgba(46,125,255,.55),transparent 65%);top:-120px;right:-60px}
+  .orb-b{width:360px;height:360px;background:radial-gradient(circle,rgba(255,77,61,.4),transparent 65%);bottom:-140px;left:-80px;animation-delay:-7s}
+  @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,24px) scale(1.12)}}
+  header.hero{position:relative;overflow:hidden}
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);overflow:hidden;padding:14px 0;white-space:nowrap}
+  .marquee span{display:inline-block;font-family:var(--mono);font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);padding-right:48px;animation:scroll 26s linear infinite}
+  .marquee span b{color:var(--teal);font-weight:600}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .count-card{position:relative;overflow:hidden}
+  .count-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--blue),var(--teal),var(--red))}
+  .count-card .big-n{font-family:var(--disp);font-weight:900;font-size:64px;line-height:1;background:linear-gradient(92deg,var(--blue),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .count-card .big-n em{font-style:normal;font-size:34px}
+  .count-card h3{margin-top:14px}
+  .card{transition:border-color .2s,transform .2s,box-shadow .2s}
+  .card:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+  .terminal{border:1px solid transparent;background:linear-gradient(var(--bg-2),var(--bg-2)) padding-box,linear-gradient(120deg,var(--blue),var(--teal),var(--red)) border-box}
+  .stat .n{background:linear-gradient(92deg,var(--ink),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .n em{background:linear-gradient(92deg,var(--red),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .log-note{color:var(--faint);font-size:14px;margin-top:18px}
 </style>
 </head>
 <body>
@@ -191,6 +200,7 @@
 </nav>
 
 <header class="hero">
+  <div class="orb orb-a"></div><div class="orb orb-b"></div>
   <div class="wrap">
     <p class="kicker">Bug Bounty · Business Logic · Responsible Disclosure</p>
     <h1>Faizan<br /><span class="outline">Baloch</span><span class="dot">.</span></h1>
@@ -212,6 +222,7 @@
     </div>
   </div>
 </header>
+<div class="marquee"><span><b>Intigriti</b> · HackerOne · Bugcrowd · Patchstack · Wordfence · <b>35+ targets tested</b> · 1 finding submitted · 3 validated ·&nbsp;</span><span><b>Intigriti</b> · HackerOne · Bugcrowd · Patchstack · Wordfence · <b>35+ targets tested</b> · 1 finding submitted · 3 validated ·&nbsp;</span></div>
 
 <main>
 <!-- 01 / ABOUT -->
@@ -346,55 +357,13 @@
 <section id="huntlog">
   <div class="wrap">
     <div class="sec-head reveal"><span class="sec-num">05</span><h2>Hunt Log — Nov 2026</h2><div class="rule"></div></div>
-    <p class="reveal" style="color:var(--muted);max-width:640px;margin-bottom:10px">Every target tested, every outcome recorded. "No candidate" means no reportable finding in the surface I could test — not a clean bill for the whole program. Submitted findings stay details-withheld until resolved.</p>
-    <div class="log-group reveal">Intigriti — 25 programs</div>
-    <ul class="log-list">
-      <li class="reveal"><div><span class="where">Intigriti · Salto</span><p>1 finding submitted — in triage</p></div><span class="outcome sub">Submitted · High</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Probiller</span><p>Auth + unauthenticated hunt — no live payment surface</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · UCB</span><p>Auth blocked (test accounts by request only) · unauth + device recheck clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · UZ Leuven eHealth Hub</span><p>Mutual-TLS only · SOAP endpoints reject unauthenticated calls</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · 1Password</span><p>Unauth + auth + browser-extension audit — vault sharing clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Yahoo</span><p>Unauth + auth (A/B accounts) — Mail, Calendar, OAuth clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · SimScale</span><p>Auth + API-via-Swagger + CAD upload — all clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · KU Leuven Housing</span><p>Authenticated hunt — OData reads session-scoped</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · KU Leuven Enrollment</span><p>Deep hunt — cross-user reads session-scoped</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Nexo</span><p>Sign-in done — unverified surface clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Fluvius</span><p>Unauth + device recheck — clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Ninja Kiwi Games</span><p>Unauth — API signature-gated, Cloudflare blocks query strings</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · ZOwonen</span><p>All hosts blocked by WAF from every route tried — untestable</p></div><span class="outcome blk">Blocked</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Telenet</span><p>Unauth — 72 live hosts, XSS / redirect / CORS all dead</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · SolarWinds SaaS</span><p>Unauth — all API routes 401-gated</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Port of Antwerp-Bruges</span><p>Unauth clean · VIP accounts denied — VAT number required</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Colruyt Group</span><p>Unauth clean · auth blocked — sign-in geo-blocked</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Mediahuis</span><p>Unauth + device recheck — WP endpoints gone, search escaped</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Marionnaud</span><p>Unauth — storefronts Akamai-blocked</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Kruidvat</span><p>Unauth — storefronts Akamai-blocked; auth hunt running</p></div><span class="outcome prog">Auth in progress</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Embark Studios</span><p>Unauth — IAP gating works as intended on every reachable host</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Lightspark</span><p>Unauth clean; auth hunt at MFA gate</p></div><span class="outcome prog">Auth in progress</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · My bpost app</span><p>Unauth clean — track API + SSO + parcel endpoints gated; auth hunt running</p></div><span class="outcome prog">Auth in progress</span></li>
-      <li class="reveal"><div><span class="where">Intigriti · Daytona · Kahoot</span><p>Applications sent 23 Nov — awaiting acceptance</p></div><span class="outcome blk">Pending</span></li>
-    </ul>
-    <div class="log-group reveal">HackerOne &amp; Bugcrowd — 10 programs</div>
-    <ul class="log-list">
-      <li class="reveal"><div><span class="where">HackerOne · GitLab</span><p>Report #4228141 closed as duplicate ($0) · second report on hold</p></div><span class="outcome sub">Duplicate</span></li>
-      <li class="reveal"><div><span class="where">HackerOne · Visa</span><p>Unauthenticated phase 1 — clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">HackerOne · Coupang</span><p>Unauthenticated hunt — clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Bugcrowd · Superhuman</span><p>Unauthenticated hunt — clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Bugcrowd · Oasis</span><p>Unauthenticated hunt — clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Bugcrowd · LinkedIn</span><p>Unauthenticated hunt — clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Bugcrowd · Atlassian (BOJA)</span><p>All 5 apps tested — clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Bugcrowd · LaunchDarkly</span><p>Unauth + cross-account API recon — clean, verified negative</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Bugcrowd · Nozbe</span><p>Phase 2 — UI-level hunt clean</p></div><span class="outcome">No candidate</span></li>
-      <li class="reveal"><div><span class="where">Bugcrowd · Skroutz</span><p>Phase 2 — clean</p></div><span class="outcome">No candidate</span></li>
-    </ul>
-    <div class="log-group reveal">Patchstack — WordPress</div>
-    <ul class="log-list">
-      <li class="reveal"><div><span class="where">Patchstack · uListing</span><p>Broken access control — validated</p></div><span class="outcome sub">Validated</span></li>
-      <li class="reveal"><div><span class="where">Patchstack · MailUp</span><p>CSRF → stored XSS — validated</p></div><span class="outcome sub">Validated</span></li>
-      <li class="reveal"><div><span class="where">Patchstack · One Click Order Reorder</span><p>Authorization flaw — validated</p></div><span class="outcome sub">Validated</span></li>
-      <li class="reveal"><div><span class="where">Patchstack · MapPress · B2BKing · Formidable Forms + 7 more</span><p>Verified in the lab, queued for submission after 28 Nov 2026</p></div><span class="outcome prog">Queued</span></li>
-    </ul>
-    <p class="log-note reveal">Findings are submitted only after manual reproduction and a duplicate check. Technical details of submitted findings are published only after the program has resolved them.</p>
+    <p class="reveal" style="color:var(--muted);max-width:640px;margin-bottom:34px">How much I've tested — not what I found where. Program names and per-program details are not published. Findings go to the programs, not the public.</p>
+    <div class="trio">
+      <div class="card count-card reveal"><div class="big-n">25</div><h3>Intigriti</h3><p>Programs tested — Nov 2026. One finding submitted, in triage.</p></div>
+      <div class="card count-card reveal"><div class="big-n">10</div><h3>HackerOne &amp; Bugcrowd</h3><p>Programs tested — Nov 2026.</p></div>
+      <div class="card count-card reveal"><div class="big-n">3<em>+10</em></div><h3>Patchstack</h3><p>WordPress findings validated, plus 10 reports verified and queued.</p></div>
+    </div>
+    <p class="log-note reveal">Submitted findings stay details-withheld until the program has resolved them.</p>
   </div>
 </section>
 
