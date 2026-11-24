@@ -1,272 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Faizan Baloch — Security Researcher &amp; Bug Bounty Hunter</title>
-<meta name="description" content="Faizan Baloch — Security Researcher & Bug Bounty Hunter. Business-logic flaws on Intigriti, HackerOne and Bugcrowd, WordPress plugin audits on Patchstack — reported responsibly, with proof." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<meta name="description" content="Faizan Baloch — security researcher and bug bounty hunter. 35+ targets tested in November 2026, one finding submitted and in triage.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,700;0,900;1,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#070B14;
-    --bg-2:#0A0E1A;
-    --panel:#0D1322;
-    --line:#1C2740;
-    --ink:#EDF1F8;
-    --muted:#93A0B8;
-    --faint:#5B6A87;
-    --blue:#2E7DFF;
-    --red:#FF4D3D;
-    --teal:#00C7B7;
-    --mono:'JetBrains Mono',ui-monospace,monospace;
-    --disp:'Archivo',system-ui,sans-serif;
-    --body:'Inter',system-ui,sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  ::selection{background:var(--red);color:#fff}
-  a{color:var(--blue);text-decoration:none}
-  a:hover{text-decoration:underline}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-
-  /* ---------- nav ---------- */
-  nav{position:sticky;top:0;z-index:50;background:rgba(7,11,20,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .wordmark{font-family:var(--disp);font-weight:900;letter-spacing:.06em;font-size:19px;color:var(--ink)}
-  .wordmark span{color:var(--red)}
-  .nav-links{display:flex;gap:28px;font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
-  .nav-links a{color:var(--muted)}
-  .nav-links a:hover{color:var(--ink);text-decoration:none}
-  @media(max-width:760px){.nav-links{display:none}}
-
-  /* ---------- hero ---------- */
-  header.hero{padding:96px 0 80px;border-bottom:1px solid var(--line);background:
-    radial-gradient(900px 420px at 85% -10%,rgba(46,125,255,.14),transparent 60%),
-    radial-gradient(700px 380px at 0% 110%,rgba(255,77,61,.08),transparent 60%),var(--bg)}
-  .kicker{font-family:var(--mono);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:22px}
-  h1{font-family:var(--disp);font-weight:900;font-size:clamp(52px,9.5vw,118px);line-height:.96;letter-spacing:-.01em;text-transform:uppercase}
-  h1 .outline{color:transparent;-webkit-text-stroke:2px var(--ink)}
-  h1 .dot{color:var(--red)}
-  .hero-title{font-family:var(--disp);font-weight:700;font-size:clamp(19px,2.6vw,27px);margin-top:26px;color:var(--ink)}
-  .hero-title em{font-style:normal;color:var(--blue)}
-  .hero-sub{max-width:640px;color:var(--muted);margin-top:16px;font-size:18px}
-  .hero-meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:30px;font-family:var(--mono);font-size:13.5px;color:var(--muted)}
-  .hero-meta a{color:var(--muted)}
-  .hero-meta a:hover{color:var(--ink);text-decoration:none}
-
-  .terminal{margin-top:52px;background:var(--bg-2);border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:680px;box-shadow:0 30px 60px rgba(0,0,0,.45)}
-  .term-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
-  .term-bar i{width:12px;height:12px;border-radius:50%;display:block}
-  .term-bar i:nth-child(1){background:#FF5F57}.term-bar i:nth-child(2){background:#FEBC2E}.term-bar i:nth-child(3){background:#28C840}
-  .term-bar span{margin-left:10px;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.06em}
-  .term-body{padding:22px 22px 26px;font-family:var(--mono);font-size:15.5px;line-height:1.9;min-height:118px}
-  .term-body .prompt{color:var(--red)}
-  .term-body .cmd{color:var(--ink)}
-  .term-body .flow{color:var(--blue)}
-  .term-body .comment{color:var(--faint)}
-  .cursor{display:inline-block;width:9px;height:1.1em;background:var(--teal);vertical-align:text-bottom;animation:blink 1s steps(1) infinite}
-  @keyframes blink{50%{opacity:0}}
-
-  /* ---------- sections ---------- */
-  section{padding:88px 0;border-bottom:1px solid var(--line)}
-  .sec-head{display:flex;align-items:baseline;gap:20px;margin-bottom:44px}
-  .sec-num{font-family:var(--mono);font-size:15px;color:var(--red);letter-spacing:.1em}
-  h2{font-family:var(--disp);font-weight:800;font-size:clamp(30px,4.6vw,48px);line-height:1.05;text-transform:uppercase;letter-spacing:-.01em}
-  .sec-head .rule{flex:1;height:1px;background:var(--line);transform:translateY(-6px)}
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.in{opacity:1;transform:none}
-
-  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  @media(max-width:820px){.trio{grid-template-columns:1fr}}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:28px}
-  .card h3{font-family:var(--disp);font-weight:800;font-size:21px;letter-spacing:.04em;margin-bottom:10px}
-  .card h3 b{color:var(--blue);font-weight:800}
-  .card p{color:var(--muted);font-size:15.5px}
-  .focus{margin-top:34px}
-  .focus h4{font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
-  .focus ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media(max-width:640px){.focus ul{grid-template-columns:1fr}}
-  .focus li{border:1px solid var(--line);border-radius:10px;padding:16px 18px;font-weight:600;background:var(--bg-2)}
-  .focus li span{display:block;font-weight:400;color:var(--muted);font-size:14px;margin-top:2px}
-
-  /* ---------- skills ---------- */
-  .skill-group{margin-bottom:30px}
-  .skill-group h4{font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
-  .chips{display:flex;flex-wrap:wrap;gap:10px}
-  .chip{font-family:var(--mono);font-size:13.5px;font-weight:600;letter-spacing:.03em;background:var(--bg-2);border:1px solid var(--line);border-bottom:3px solid var(--blue);border-radius:8px;padding:9px 15px;color:var(--ink)}
-  .chip.red{border-bottom-color:var(--red)}
-  .chip.teal{border-bottom-color:var(--teal)}
-
-  /* ---------- projects ---------- */
-  .projects{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  @media(max-width:820px){.projects{grid-template-columns:1fr}}
-  .proj{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:30px;color:var(--ink);transition:border-color .2s,transform .2s}
-  .proj:hover{border-color:var(--blue);transform:translateY(-3px);text-decoration:none}
-  .proj .p-tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
-  .proj h3{font-family:var(--mono);font-weight:600;font-size:22px;margin:12px 0 8px}
-  .proj h3 .arr{color:var(--red)}
-  .proj p{color:var(--muted);font-size:15.5px}
-  .proj .p-focus{margin-top:16px;font-family:var(--mono);font-size:12.5px;color:var(--faint);letter-spacing:.06em}
-
-  /* ---------- impact ---------- */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:40px}
-  @media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:520px){.stats{grid-template-columns:1fr}}
-  .stat{background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:30px;text-align:left}
-  .stat .n{font-family:var(--disp);font-weight:900;font-size:56px;line-height:1;color:var(--ink)}
-  .stat .n em{font-style:normal;color:var(--red)}
-  .stat .l{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:12px}
-  .impact-list{list-style:none;display:grid;gap:14px}
-  .impact-list li{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:10px;padding:20px 24px}
-  .impact-list li.red{border-left-color:var(--red)}
-  .impact-list b{font-weight:700}
-  .impact-list .where{font-family:var(--mono);font-size:12.5px;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px}
-  .impact-list p{color:var(--muted);font-size:15.5px}
-
-
-  .craft{margin-top:48px}
-  .bar-row{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:center;padding:13px 0;border-bottom:1px dashed var(--line)}
-  @media(max-width:640px){.bar-row{grid-template-columns:1fr;gap:8px}}
-  .bar-row .name{font-weight:600;font-size:15.5px}
-  .bar{height:12px;background:var(--bg-2);border:1px solid var(--line);border-radius:99px;overflow:hidden}
-  .bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--teal));transition:width 1.1s ease}
-  .craft .note{color:var(--faint);font-size:13.5px;margin-top:14px;font-style:italic}
-
-  /* ---------- life ---------- */
-  .life{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  @media(max-width:820px){.life{grid-template-columns:1fr}}
-  .life .card .num{font-family:var(--mono);color:var(--red);font-size:14px;display:block;margin-bottom:12px}
-  blockquote.mentor{margin-top:34px;background:var(--bg-2);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:10px;padding:28px 30px}
-  blockquote.mentor .tag{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--red);text-transform:uppercase;display:block;margin-bottom:10px}
-  blockquote.mentor p{font-family:var(--disp);font-weight:700;font-size:clamp(19px,2.4vw,24px);line-height:1.4}
-  blockquote.mentor p span{color:var(--muted);font-family:var(--body);font-weight:400;font-size:16px;display:block;margin-top:8px}
-
-  /* ---------- support / connect ---------- */
-  .support{background:linear-gradient(135deg,rgba(46,125,255,.12),rgba(255,77,61,.08)),var(--panel);border:1px solid var(--line);border-radius:14px;padding:40px;text-align:left}
-  .support h3{font-family:var(--disp);font-weight:800;font-size:26px;text-transform:uppercase;margin-bottom:10px}
-  .support p{color:var(--muted);max-width:560px}
-  .btn{display:inline-block;margin-top:22px;background:var(--red);color:#fff;font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:.06em;padding:13px 26px;border-radius:8px}
-  .btn:hover{background:#e03e30;text-decoration:none}
-  .connect{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px;margin-top:8px}
-  @media(max-width:640px){.connect{grid-template-columns:1fr}}
-  .connect a{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:10px;padding:18px 22px;background:var(--bg-2);color:var(--ink);font-weight:600}
-  .connect a:hover{border-color:var(--blue);text-decoration:none}
-  .connect a small{font-family:var(--mono);font-weight:400;color:var(--faint);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
-  .connect a span{color:var(--blue);font-family:var(--mono);font-size:14.5px;font-weight:600}
-
-  footer{padding:44px 0 54px}
-  .foot-in{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;color:var(--faint);font-size:14px}
-  .foot-in .sig{font-family:var(--disp);font-weight:700;color:var(--muted);font-style:italic}
-  /* ---------- advanced UI ---------- */
-  .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none;animation:drift 14s ease-in-out infinite alternate}
-  .orb-a{width:420px;height:420px;background:radial-gradient(circle,rgba(46,125,255,.55),transparent 65%);top:-120px;right:-60px}
-  .orb-b{width:360px;height:360px;background:radial-gradient(circle,rgba(255,77,61,.4),transparent 65%);bottom:-140px;left:-80px;animation-delay:-7s}
-  @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,24px) scale(1.12)}}
-  header.hero{position:relative;overflow:hidden}
-  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);overflow:hidden;padding:14px 0;white-space:nowrap}
-  .marquee span{display:inline-block;font-family:var(--mono);font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);padding-right:48px;animation:scroll 26s linear infinite}
-  .marquee span b{color:var(--teal);font-weight:600}
-  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  .count-card{position:relative;overflow:hidden}
-  .count-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--blue),var(--teal),var(--red))}
-  .count-card .big-n{font-family:var(--disp);font-weight:900;font-size:64px;line-height:1;background:linear-gradient(92deg,var(--blue),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .count-card .big-n em{font-style:normal;font-size:34px}
-  .count-card h3{margin-top:14px}
-  .card{transition:border-color .2s,transform .2s,box-shadow .2s}
-  .card:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
-  .terminal{border:1px solid transparent;background:linear-gradient(var(--bg-2),var(--bg-2)) padding-box,linear-gradient(120deg,var(--blue),var(--teal),var(--red)) border-box}
-  .stat .n{background:linear-gradient(92deg,var(--ink),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .stat .n em{background:linear-gradient(92deg,var(--red),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .log-note{color:var(--faint);font-size:14px;margin-top:18px}
+:root{
+  --bg:#080a0f; --bg-2:#0d1017; --bg-3:#12161f;
+  --ink:#f2f4f8; --muted:#9aa3b2; --faint:#5d6675;
+  --line:rgba(255,255,255,.08);
+  --blue:#2e7dff; --red:#ff4d3d; --teal:#14d9a5;
+  --grad:linear-gradient(92deg,#2e7dff,#14d9a5 55%,#ff4d3d);
+  --disp:"Archivo",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;overflow-x:hidden}
+::selection{background:var(--blue);color:#fff}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.mono{font-family:var(--mono)}
+/* ---------- background fx ---------- */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aurora i{position:absolute;border-radius:50%;filter:blur(110px);opacity:.45}
+.aurora .a1{width:560px;height:560px;background:radial-gradient(circle,rgba(46,125,255,.6),transparent 65%);top:-180px;right:-100px;animation:drift 18s ease-in-out infinite alternate}
+.aurora .a2{width:480px;height:480px;background:radial-gradient(circle,rgba(20,217,165,.4),transparent 65%);top:38%;left:-180px;animation:drift 22s ease-in-out infinite alternate-reverse}
+.aurora .a3{width:420px;height:420px;background:radial-gradient(circle,rgba(255,77,61,.35),transparent 65%);bottom:-160px;right:22%;animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,30px) scale(1.15)}}
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 75%)}
+#progress{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--grad);z-index:100}
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:90;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(8,10,15,.72);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:26px;height:62px}
+.brand{font-family:var(--disp);font-weight:900;font-size:19px;letter-spacing:.02em;text-decoration:none}
+.brand em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+nav .links{margin-left:auto;display:flex;gap:22px;align-items:center}
+nav .links a{font-size:13px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+nav .links a:hover{color:var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;padding:6px 12px;border:1px solid rgba(20,217,165,.4);border-radius:99px;color:var(--teal);background:rgba(20,217,165,.08);white-space:nowrap}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(20,217,165,.5)}50%{box-shadow:0 0 0 6px rgba(20,217,165,0)}}
+/* ---------- hero ---------- */
+header.hero{position:relative;z-index:1;padding:88px 0 64px}
+.kicker{font-family:var(--mono);font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:22px}
+h1{font-family:var(--disp);font-weight:900;font-size:clamp(52px,8.4vw,104px);line-height:.96;letter-spacing:-.02em}
+h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:20px;color:var(--muted);max-width:620px;margin-top:24px}
+.hero-sub b{color:var(--ink)}
+.hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+.btn{display:inline-block;font-family:var(--mono);font-size:14px;padding:13px 22px;border-radius:10px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn-solid{background:var(--grad);color:#fff;font-weight:700}
+.btn-solid:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(46,125,255,.35)}
+.btn-ghost{border:1px solid var(--line);color:var(--ink);background:rgba(255,255,255,.03)}
+.btn-ghost:hover{border-color:var(--blue);transform:translateY(-2px)}
+/* scoreboard */
+.scoreboard{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:56px}
+.tile{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;padding:22px 20px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
+.tile::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:var(--grad);opacity:0;transition:opacity .2s}
+.tile:hover{border-color:rgba(46,125,255,.5);transform:translateY(-3px)}
+.tile:hover::after{opacity:1}
+.tile .n{font-family:var(--disp);font-weight:900;font-size:44px;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tile .n small{font-size:22px}
+.tile .l{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.tile .s{font-size:13px;color:var(--faint);margin-top:4px}
+/* terminal */
+.terminal{margin-top:44px;border-radius:14px;overflow:hidden;border:1px solid transparent;background:linear-gradient(var(--bg-2),var(--bg-2)) padding-box,linear-gradient(120deg,var(--blue),var(--teal),var(--red)) border-box;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.term-bar{display:flex;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.term-bar i{width:11px;height:11px;border-radius:50%;background:#2a3140}
+.term-bar i:first-child{background:var(--red)}
+.term-bar i:nth-child(2){background:#f5b301}
+.term-bar i:nth-child(3){background:var(--teal)}
+.term-body{padding:20px 22px;font-family:var(--mono);font-size:14.5px;line-height:1.9;color:#c8d0dc}
+.term-body .p{color:var(--teal)}
+.term-body .ok{color:var(--teal)}
+.term-body .dim{color:var(--faint)}
+.caret{display:inline-block;width:9px;height:17px;background:var(--teal);vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+/* marquee */
+.marquee{position:relative;z-index:1;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);overflow:hidden;padding:15px 0;white-space:nowrap}
+.marquee span{display:inline-block;font-family:var(--mono);font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);padding-right:48px;animation:scroll 26s linear infinite}
+.marquee span b{color:var(--teal);font-weight:600}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ---------- sections ---------- */
+main{position:relative;z-index:1}
+section{padding:84px 0}
+.sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:30px}
+.sec-num{font-family:var(--mono);font-size:14px;color:var(--blue)}
+h2{font-family:var(--disp);font-weight:900;font-size:clamp(30px,4.4vw,46px);line-height:1.05;letter-spacing:-.01em}
+h2 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rule{flex:1;height:1px;background:var(--line)}
+.lede{color:var(--muted);max-width:640px;margin-bottom:36px}
+.lede b{color:var(--ink)}
+.grid{display:grid;gap:16px}
+.grid.two{grid-template-columns:1fr 1fr}
+.grid.three{grid-template-columns:repeat(3,1fr)}
+.card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;padding:26px;transition:border-color .2s,transform .2s,box-shadow .2s}
+.card:hover{border-color:rgba(46,125,255,.55);transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.card h3{font-family:var(--disp);font-size:20px;font-weight:700;margin-bottom:8px}
+.card p{color:var(--muted);font-size:15px}
+.card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{font-family:var(--mono);font-size:13px;padding:9px 15px;border:1px solid var(--line);border-radius:99px;background:rgba(255,255,255,.03);transition:border-color .2s,color .2s,transform .2s}
+.chip:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+/* impact list */
+.impact{border-top:1px solid var(--line)}
+.impact-item{display:grid;grid-template-columns:150px 1fr auto;gap:20px;align-items:start;padding:24px 0;border-bottom:1px solid var(--line);transition:background .2s}
+.impact-item:hover{background:rgba(255,255,255,.02)}
+.impact-item .when{font-family:var(--mono);font-size:12.5px;color:var(--faint);padding-top:4px}
+.impact-item h3{font-family:var(--disp);font-size:20px}
+.impact-item p{color:var(--muted);font-size:15px;margin-top:4px}
+.status{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:99px;white-space:nowrap}
+.st-sub{background:rgba(46,125,255,.14);color:#7db4ff;border:1px solid rgba(46,125,255,.4)}
+.st-val{background:rgba(20,217,165,.12);color:var(--teal);border:1px solid rgba(20,217,165,.4)}
+.st-dup{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--line)}
+/* hunt log counts */
+.count-card{position:relative;overflow:hidden;text-align:left}
+.count-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad)}
+.count-card .big-n{font-family:var(--disp);font-weight:900;font-size:64px;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.count-card .big-n em{font-style:normal;font-size:32px}
+.count-card h3{margin-top:14px}
+.log-note{color:var(--faint);font-size:14px;margin-top:20px}
+/* connect */
+.connect-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.connect-card{display:block;text-decoration:none;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;padding:22px;transition:border-color .2s,transform .2s}
+.connect-card:hover{border-color:var(--teal);transform:translateY(-3px)}
+.connect-card .ic{font-family:var(--mono);font-size:12px;color:var(--teal);letter-spacing:.14em;text-transform:uppercase}
+.connect-card .val{font-family:var(--disp);font-weight:700;font-size:17px;margin-top:8px;word-break:break-word}
+.connect-card .sub{font-size:13px;color:var(--faint);margin-top:4px}
+footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:56px 0 44px;text-align:center}
+footer .big{font-family:var(--disp);font-weight:900;font-size:clamp(26px,4vw,40px);line-height:1.1}
+footer .big .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+footer p{color:var(--faint);font-size:13.5px;margin-top:16px;font-family:var(--mono)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:820px){
+  .scoreboard{grid-template-columns:1fr 1fr}
+  .grid.two,.grid.three,.connect-grid{grid-template-columns:1fr}
+  .impact-item{grid-template-columns:1fr;gap:8px}
+  nav .links a{display:none}
+  section{padding:60px 0}
+  header.hero{padding:60px 0 48px}
+}
 </style>
 </head>
 <body>
+<div class="aurora"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+<div class="grid-bg"></div>
+<div id="progress"></div>
 
 <nav>
-  <div class="wrap nav-in">
-    <div class="wordmark">REAL<span>F4IZAN</span></div>
-    <div class="nav-links">
+  <div class="wrap">
+    <a class="brand" href="#">FAIZAN<em>BALOCH</em></a>
+    <div class="links">
       <a href="#about">About</a>
-      <a href="#built">Built</a>
       <a href="#impact">Impact</a>
       <a href="#huntlog">Hunt Log</a>
-      <a href="#life">Life</a>
       <a href="#connect">Connect</a>
+      <span class="pill"><span class="dot"></span>1 finding · in triage</span>
     </div>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="orb orb-a"></div><div class="orb orb-b"></div>
   <div class="wrap">
-    <p class="kicker">Bug Bounty · Business Logic · Responsible Disclosure</p>
-    <h1>Faizan<br /><span class="outline">Baloch</span><span class="dot">.</span></h1>
-    <p class="hero-title">Security Researcher <em>&amp; Bug Bounty Hunter</em></p>
-    <p class="hero-sub">I hunt business-logic flaws — IDOR, auth bypass, payment &amp; checkout manipulation — inside published scope on Intigriti, HackerOne and Bugcrowd, plus WordPress plugin audits on Patchstack. 35+ targets tested in November 2026, one finding submitted and in triage. I report what I can prove, nothing I can't.</p>
-    <div class="hero-meta">
-      <a href="https://realf4izan.github.io/portfolio/">🌐 realf4izan.github.io/portfolio</a>
-      <a href="mailto:realf4izan@gmail.com">✉️ realf4izan@gmail.com</a>
-      <a href="https://www.instagram.com/real_f4izan/">📸 @real_f4izan</a>
-      <a href="https://github.com/realf4izan">💻 github.com/realf4izan</a>
+    <p class="kicker">Intigriti · HackerOne · Bugcrowd · Patchstack</p>
+    <h1>Security Researcher<br>&amp; <span class="g">Bug Bounty Hunter</span></h1>
+    <p class="hero-sub">I'm Faizan Baloch. I hunt <b>business-logic flaws</b> — access control, payment flows, auth bypass — on live bug bounty programs, and I prove every finding end to end before I file it.</p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#huntlog">View the hunt log ↓</a>
+      <a class="btn btn-ghost" href="#connect">Get in touch</a>
     </div>
-    <div class="terminal" aria-label="Terminal: hunt workflow">
-      <div class="term-bar"><i></i><i></i><i></i><span>faizan@lab — hunt()</span></div>
+    <div class="scoreboard">
+      <div class="tile"><div class="n"><span data-count="1">1</span></div><div class="l">Finding submitted</div><div class="s">Salto · in triage</div></div>
+      <div class="tile"><div class="n"><span data-count="3">3</span></div><div class="l">Findings validated</div><div class="s">Patchstack · WordPress</div></div>
+      <div class="tile"><div class="n"><span data-count="1">1</span> <small>CVE</small></div><div class="l">CVE assigned</div><div class="s">CVE-2026-131592</div></div>
+      <div class="tile"><div class="n"><span data-count="35">35</span><small>+</small></div><div class="l">Targets tested</div><div class="s">Nov 2026 · in scope only</div></div>
+    </div>
+    <div class="terminal">
+      <div class="term-bar"><i></i><i></i><i></i></div>
       <div class="term-body">
-        <div><span class="prompt">$</span> <span class="cmd">hunt()</span></div>
-        <div><span class="flow" id="typed"></span><span class="cursor" id="cursor"></span></div>
-        <div class="comment"># every finding reproduced cleanly, reported with proof</div>
+        <div><span class="p">$</span> <span id="type"></span><span class="caret"></span></div>
+        <div id="term-out" style="display:none"><span class="dim">→ scope: intigriti · mode: business-logic · proof: required</span><br><span class="ok">✓ 1 finding submitted — in triage</span><br><span class="ok">✓ 3 findings validated on Patchstack</span><br><span class="dim">→ hunting continues. no scanner noise, no guesses.</span></div>
       </div>
     </div>
   </div>
 </header>
+
 <div class="marquee"><span><b>Intigriti</b> · HackerOne · Bugcrowd · Patchstack · Wordfence · <b>35+ targets tested</b> · 1 finding submitted · 3 validated ·&nbsp;</span><span><b>Intigriti</b> · HackerOne · Bugcrowd · Patchstack · Wordfence · <b>35+ targets tested</b> · 1 finding submitted · 3 validated ·&nbsp;</span></div>
 
 <main>
 <!-- 01 / ABOUT -->
 <section id="about">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">01</span><h2>From Thought to Thing</h2><div class="rule"></div></div>
-    <div class="trio">
-      <div class="card reveal"><h3><b>THINK</b></h3><p>Read the code. Map the logic. Find where trust is assumed.</p></div>
-      <div class="card reveal"><h3><b>EXECUTE</b></h3><p>Test it in the lab. Reproduce it, cleanly.</p></div>
-      <div class="card reveal"><h3><b>BUILD</b></h3><p>Report it responsibly, with proof.</p></div>
+    <div class="sec-head reveal"><span class="sec-num">01</span><h2>About <span class="g">me</span></h2><div class="rule"></div></div>
+    <p class="lede reveal">I test live programs inside their published scope — <b>no out-of-scope probing, no automated scanning noise</b>. My focus is the logic the scanner can't see: who can do what, what a second account can reach, where a payment step can be skipped.</p>
+    <div class="grid two">
+      <div class="card reveal"><span class="tag">Current focus</span><h3>Intigriti — low-competition programs</h3><p>Few researchers, real scope, business logic first. One finding submitted and in triage; hunting continues until the next strong one lands.</p></div>
+      <div class="card reveal"><span class="tag">Method</span><h3>Manual audit, lab-verified</h3><p>Static audit first, then live reproduction with test accounts. Every report is reproducible without follow-up questions — and duplicate-checked before it is filed.</p></div>
     </div>
-    <div class="focus reveal">
-      <h4>Where I hunt</h4>
-      <ul>
-        <li>Business-logic flaws<span>Where the app follows its own rules — into a wall.</span></li>
-        <li>IDOR &amp; broken access control<span>Objects and actions that never check who is asking.</span></li>
-        <li>Auth bypass<span>Login, reset and session flows that trust too much.</span></li>
-        <li>Payment &amp; checkout flaws<span>Price, order and reorder logic in WordPress commerce.</span></li>
-      </ul>
-      <p style="margin-top:16px;color:var(--muted);font-size:15px">Current focus: <b style="color:var(--ink)">Intigriti</b> — low-competition programs, hunted deep one at a time.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 02 / TOOLBOX -->
-<section id="toolbox">
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">02</span><h2>My Online Room</h2><div class="rule"></div></div>
-    <div class="skill-group reveal">
-      <h4>Languages</h4>
-      <div class="chips">
-        <span class="chip">Python</span><span class="chip">PHP</span><span class="chip red">JavaScript</span><span class="chip red">HTML5</span><span class="chip">CSS3</span>
-      </div>
-    </div>
-    <div class="skill-group reveal">
-      <h4>Frontend &amp; Runtime</h4>
-      <div class="chips">
-        <span class="chip">WordPress</span><span class="chip red">Linux</span><span class="chip red">Git</span><span class="chip">Terminal</span>
-      </div>
-    </div>
-    <div class="skill-group reveal">
-      <h4>Backend, Cloud &amp; AI</h4>
-      <div class="chips">
-        <span class="chip">MariaDB</span><span class="chip teal">GitHub Pages</span><span class="chip">WP-CLI</span><span class="chip">AI Tools</span>
+    <div style="margin-top:36px">
+      <div class="sec-head reveal" style="margin-bottom:18px"><span class="sec-num">02</span><h2 style="font-size:26px">Toolbox</h2><div class="rule"></div></div>
+      <div class="chips reveal">
+        <span class="chip">Burp Suite</span><span class="chip">curl / Python</span><span class="chip">JavaScript recon</span><span class="chip">WordPress audit</span><span class="chip">API / GraphQL</span><span class="chip">Android APK audit</span><span class="chip">jadx / androguard</span><span class="chip">OWASP Top 10</span><span class="chip">Business logic</span><span class="chip">IDOR / BAC</span>
       </div>
     </div>
   </div>
@@ -275,32 +214,10 @@
 <!-- 03 / BUILT -->
 <section id="built">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">03</span><h2>Things I've Built</h2><div class="rule"></div></div>
-    <div class="projects">
-      <a class="proj reveal" href="https://github.com/realf4izan/wp-ajax-audit">
-        <span class="p-tag">Open Source · Auditor</span>
-        <h3>wp-ajax-audit <span class="arr">→</span></h3>
-        <p>WordPress AJAX/REST authorization auditor — finds handlers missing auth checks.</p>
-        <div class="p-focus">PYTHON · WORDPRESS SECURITY</div>
-      </a>
-      <a class="proj reveal" href="https://github.com/realf4izan/bug-bounty-playbook">
-        <span class="p-tag">Open Source · Playbook</span>
-        <h3>bug-bounty-playbook <span class="arr">→</span></h3>
-        <p>Business-logic hunting playbook + report templates.</p>
-        <div class="p-focus">BUG BOUNTY · WORDPRESS</div>
-      </a>
-      <a class="proj reveal" href="https://github.com/realf4izan/oneshot_recon.py">
-        <span class="p-tag">Tool · Recon</span>
-        <h3>oneshot_recon.py <span class="arr">→</span></h3>
-        <p>OSINT dossier builder — scoped recon reports.</p>
-        <div class="p-focus">PYTHON · OSINT</div>
-      </a>
-      <a class="proj reveal" href="https://github.com/realf4izan/wp-cve-hunter">
-        <span class="p-tag">Open Source · CVE Research</span>
-        <h3>wp-cve-hunter <span class="arr">→</span></h3>
-        <p>WordPress plugin/theme CVE fingerprinter — fork of gravion-ux/wp-cve-hunter.</p>
-        <div class="p-focus">PYTHON · CVE RESEARCH</div>
-      </a>
+    <div class="sec-head reveal"><span class="sec-num">03</span><h2>Built <span class="g">by me</span></h2><div class="rule"></div></div>
+    <div class="grid two">
+      <div class="card reveal"><span class="tag">Bug-hunter site</span><h3>faizanbaloch1.netlify.app</h3><p>My public hunt record — findings, hunt log, and how I work. Updated with every submission.</p></div>
+      <div class="card reveal"><span class="tag">Tooling</span><h3>Recon + lab toolkit</h3><p>Custom probe scripts, a local WordPress lab for plugin verification, and an Android audit toolchain for APK review.</p></div>
     </div>
   </div>
 </section>
@@ -308,47 +225,28 @@
 <!-- 04 / IMPACT -->
 <section id="impact">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">04</span><h2>Real Work. Real Impact.</h2><div class="rule"></div></div>
-    <div class="stats">
-      <div class="stat reveal"><div class="n">1</div><div class="l">Finding Submitted — Salto, In Triage</div></div>
-      <div class="stat reveal"><div class="n">3</div><div class="l">Validated Reports — Patchstack</div></div>
-      <div class="stat reveal"><div class="n">1<em> CVE</em></div><div class="l">CVE-2026-131592</div></div>
-      <div class="stat reveal"><div class="n">35<em>+</em></div><div class="l">Targets Tested — Nov 2026</div></div>
-    </div>
-    <ul class="impact-list">
-      <li class="red reveal">
-        <span class="where">Intigriti · Salto — Submitted 23 Nov 2026</span>
-        <p><b>One finding submitted, in triage.</b> Details withheld until the program has triaged and resolved it.</p>
-      </li>
-      <li class="red reveal">
-        <span class="where">Wordfence · CVE-2026-131592</span>
-        <p><b>Validated stored XSS in AgeChecker.</b> Wordfence bounty proposed.</p>
-      </li>
-      <li class="reveal">
-        <span class="where">Patchstack · uListing</span>
-        <p><b>Broken access control</b> — validated report.</p>
-      </li>
-      <li class="reveal">
-        <span class="where">Patchstack · MailUp</span>
-        <p><b>CSRF → stored XSS</b> — validated report.</p>
-      </li>
-      <li class="reveal">
-        <span class="where">Patchstack · One Click Order Reorder</span>
-        <p><b>Stored XSS</b> — validated report.</p>
-      </li>
-      <li class="reveal">
-        <span class="where">HackerOne · GitLab — Report #4228141</span>
-        <p><b>Unauthenticated Prometheus metrics — closed as duplicate ($0).</b> A second report in the same class is on hold pending duplicate-risk review. Duplicates happen — every finding now gets a full duplicate check first.</p>
-      </li>
-    </ul>
-
-    <div class="craft reveal">
-      <div class="sec-head" style="margin-bottom:20px"><span class="sec-num">—</span><h2 style="font-size:clamp(22px,3vw,30px)">Core Craft</h2><div class="rule"></div></div>
-      <div class="bar-row"><div class="name">WordPress plugin audit</div><div class="bar"><i data-w="100"></i></div></div>
-      <div class="bar-row"><div class="name">Business-logic flaws</div><div class="bar"><i data-w="100"></i></div></div>
-      <div class="bar-row"><div class="name">Payment &amp; checkout flaws</div><div class="bar"><i data-w="100"></i></div></div>
-      <div class="bar-row"><div class="name">Responsible reporting</div><div class="bar"><i data-w="100"></i></div></div>
-      <p class="note">Bars mark focus areas, not scores.</p>
+    <div class="sec-head reveal"><span class="sec-num">04</span><h2>Impact <span class="g">so far</span></h2><div class="rule"></div></div>
+    <div class="impact reveal">
+      <div class="impact-item">
+        <span class="when">23 NOV 2026</span>
+        <div><h3>Salto — Intigriti</h3><p>One finding submitted, in triage. Details withheld until the program has triaged and resolved it.</p></div>
+        <span class="status st-sub">Submitted · High</span>
+      </div>
+      <div class="impact-item">
+        <span class="when">NOV 2026</span>
+        <div><h3>Wordfence — AgeChecker stored XSS</h3><p>Validated finding, CVE-2026-131592, CVSS 6.1. Bounty proposed by the program.</p></div>
+        <span class="status st-val">Validated · CVE</span>
+      </div>
+      <div class="impact-item">
+        <span class="when">NOV 2026</span>
+        <div><h3>Patchstack — uListing, MailUp, One Click Order Reorder</h3><p>Three WordPress findings validated: broken access control, CSRF to stored XSS, authorization flaw.</p></div>
+        <span class="status st-val">Validated ×3</span>
+      </div>
+      <div class="impact-item">
+        <span class="when">22 NOV 2026</span>
+        <div><h3>GitLab — HackerOne report #4228141</h3><p>Unauthenticated metrics exposure. Closed as a duplicate of #3544313, $0 — the duplicate check that now runs before every submission.</p></div>
+        <span class="status st-dup">Duplicate · $0</span>
+      </div>
     </div>
   </div>
 </section>
@@ -356,9 +254,9 @@
 <!-- 05 / HUNT LOG -->
 <section id="huntlog">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">05</span><h2>Hunt Log — Nov 2026</h2><div class="rule"></div></div>
-    <p class="reveal" style="color:var(--muted);max-width:640px;margin-bottom:34px">How much I've tested — not what I found where. Program names and per-program details are not published. Findings go to the programs, not the public.</p>
-    <div class="trio">
+    <div class="sec-head reveal"><span class="sec-num">05</span><h2>Hunt Log — <span class="g">Nov 2026</span></h2><div class="rule"></div></div>
+    <p class="lede reveal">How much I've tested — not what I found where. Program names and per-program details are not published. Findings go to the programs, not the public.</p>
+    <div class="grid three">
       <div class="card count-card reveal"><div class="big-n">25</div><h3>Intigriti</h3><p>Programs tested — Nov 2026. One finding submitted, in triage.</p></div>
       <div class="card count-card reveal"><div class="big-n">10</div><h3>HackerOne &amp; Bugcrowd</h3><p>Programs tested — Nov 2026.</p></div>
       <div class="card count-card reveal"><div class="big-n">3<em>+10</em></div><h3>Patchstack</h3><p>WordPress findings validated, plus 10 reports verified and queued.</p></div>
@@ -370,85 +268,57 @@
 <!-- 06 / LIFE -->
 <section id="life">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">06</span><h2>Life Outside the Commit</h2><div class="rule"></div></div>
-    <div class="life">
-      <div class="card reveal"><span class="num">/ 01</span><h3>Teaching Cyber Security</h3><p>Beginner lectures in Roman Urdu, from absolute zero.</p></div>
-      <div class="card reveal"><span class="num">/ 02</span><h3>AI Video Editing</h3><p>CapCut + AI tools, mobile-first.</p></div>
-      <div class="card reveal"><span class="num">/ 03</span><h3>Building Websites &amp; Tools</h3><p>Security tools and portfolio sites.</p></div>
+    <div class="sec-head reveal"><span class="sec-num">06</span><h2>Off <span class="g">the keyboard</span></h2><div class="rule"></div></div>
+    <div class="grid two">
+      <div class="card reveal"><span class="tag">Goal</span><h3>Building toward my own setup</h3><p>Every accepted finding goes toward a proper machine of my own — so the hunting can get deeper, faster.</p></div>
+      <div class="card reveal"><span class="tag">Learning</span><h3>Psychology, one lesson a day</h3><p>Short daily lessons on talking to people with confidence — because the report matters, and so does the conversation after it.</p></div>
     </div>
-    <blockquote class="mentor reveal">
-      <span class="tag">Mentorship</span>
-      <p>You don't need a laptop to start.<span>Teaching beginners that you don't need a laptop to start learning security — a phone and curiosity are enough.</span></p>
-    </blockquote>
   </div>
 </section>
 
-<!-- 07 / SUPPORT + CONNECT -->
+<!-- 07 / CONNECT -->
 <section id="connect">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">07</span><h2>Let's Connect</h2><div class="rule"></div></div>
-    <div class="support reveal">
-      <h3>Support My Work</h3>
-      <p>If my open-source security work helps you, consider sponsoring me on GitHub — it keeps the hunting and the tooling going.</p>
-      <a class="btn" href="https://github.com/sponsors/realf4izan">♥ Sponsor on GitHub</a>
-    </div>
-    <div style="height:26px"></div>
-    <div class="connect reveal">
-      <a href="https://realf4izan.github.io/portfolio/"><small>Website</small><span>realf4izan.github.io/portfolio</span></a>
-      <a href="mailto:realf4izan@gmail.com"><small>Email</small><span>realf4izan@gmail.com</span></a>
-      <a href="https://www.instagram.com/real_f4izan/"><small>Instagram</small><span>@real_f4izan</span></a>
-      <a href="https://github.com/realf4izan"><small>GitHub</small><span>@realf4izan</span></a>
+    <div class="sec-head reveal"><span class="sec-num">07</span><h2>Connect <span class="g">with me</span></h2><div class="rule"></div></div>
+    <div class="connect-grid">
+      <a class="connect-card reveal" href="mailto:realf4izan@gmail.com"><span class="ic">Email</span><div class="val">realf4izan@gmail.com</div><div class="sub">Fastest way to reach me</div></a>
+      <a class="connect-card reveal" href="https://www.instagram.com/real_f4izan"><span class="ic">Instagram</span><div class="val">@real_f4izan</div><div class="sub">Reels &amp; hunt updates</div></a>
+      <a class="connect-card reveal" href="https://hackerone.com/faizanbaloch"><span class="ic">HackerOne</span><div class="val">faizanbaloch</div><div class="sub">Reports &amp; reputation</div></a>
+      <a class="connect-card reveal" href="https://github.com/realf4izan"><span class="ic">GitHub</span><div class="val">realf4izan</div><div class="sub">Tools &amp; projects</div></a>
     </div>
   </div>
 </section>
 </main>
 
 <footer>
-  <div class="wrap foot-in">
-    <span>© Faizan Baloch — @realf4izan</span>
-    <span class="sig">Hunting bugs — business logic first, proof always.</span>
-    <span><a href="https://realf4izan.github.io/portfolio/">realf4izan.github.io/portfolio</a></span>
+  <div class="wrap">
+    <p class="big">Hunting bugs — <span class="g">business logic first, proof always.</span></p>
+    <p>© 2026 Faizan Baloch · Security Researcher &amp; Bug Bounty Hunter</p>
   </div>
 </footer>
 
 <script>
-  // Typed terminal hook: scope → read → test → report
-  (function () {
-    var el = document.getElementById('typed');
-    var text = '  scope → read → test → report';
-    var i = 0;
-    function tick() {
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(tick, 55);
-      }
-    }
-    setTimeout(tick, 450);
-  })();
-
-  // Reveal on scroll + animate craft bars
-  (function () {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          e.target.querySelectorAll('.bar i').forEach(function (b) {
-            b.style.width = b.getAttribute('data-w') + '%';
-          });
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(function (n) { io.observe(n); });
-    document.querySelectorAll('.bar i').forEach(function (b) {
-      new IntersectionObserver(function (entries, obs) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { b.style.width = b.getAttribute('data-w') + '%'; obs.disconnect(); }
-        });
-      }, { threshold: 0.4 }).observe(b);
-    });
-  })();
+(function(){
+  // scroll progress
+  var bar=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;bar.style.width=(m>0?(h.scrollTop/m)*100:0)+'%'}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  // reveal on scroll
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+  // count-up
+  var cio=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting)return;cio.unobserve(e.target);
+    var el=e.target,target=+el.getAttribute('data-count'),t0=null;
+    function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/900,1);el.textContent=Math.round(target*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}
+    requestAnimationFrame(step);
+  })},{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el)});
+  // terminal typing
+  var cmd='./hunt --scope intigriti --mode business-logic',i=0,el=document.getElementById('type');
+  function type(){if(i<=cmd.length){el.textContent=cmd.slice(0,i);i++;setTimeout(type,34)}else{setTimeout(function(){document.getElementById('term-out').style.display='block'},350)}}
+  setTimeout(type,500);
+})();
 </script>
 </body>
 </html>
